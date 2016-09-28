@@ -1,0 +1,8 @@
+<section>
+    <h3>
+        {{ $ctrl.tune.songTitle }}
+        <button ng-click="play($ctrl.tune)">Play Song</button>
+    </h3>
+    <p>Played by: {{ $ctrl.tune.artistName }}</p>
+    <p>Featured on the album: {{ $ctrl.tune.albumName }}</p>
+</section>

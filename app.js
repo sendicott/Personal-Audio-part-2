@@ -17,8 +17,6 @@ app.factory("AudioService", function () {
         { friendName: "Jiffy Scarborough", songsLiked: 200000, superPower: "consuming grotesque amounts of peanut butter", },
     ];
 
-    let userArray = ["Wishbone", "Count Dumas", "Biggles", "Lancelot", "Diggle", "Pikachu", "Guy"];
-
     let grandArray = ["Blue", "Gary", "Idgit", "Rival", "Liger"];
 
     return {
@@ -30,12 +28,33 @@ app.factory("AudioService", function () {
             return friendArray;
         },
 
-        getUser: function() {
-            return userArray[Math.floor(Math.random() * userArray.length)];
-        },
+        // getUser: function() {
+        //     return userArray[Math.floor(Math.random() * userArray.length)];
+        // },
 
         getGrandson: function() {
             return grandArray[Math.floor(Math.random() * grandArray.length)]; 
+        }
+    }
+});
+
+app.factory("UserService", function() {
+    let user = {
+        username: null,
+        password: null,
+    };
+
+    return {
+        getUser: function() {
+            return user;
+        },
+
+        setUser: function(input) {
+            user.username = input;
+        },
+
+        setPW: function(input) {
+            user.password = input;
         }
     }
 });
@@ -66,9 +85,17 @@ app.component('home', {
     controller: 'HomeController',
 });
 
-app.controller('HomeController', function($scope, AudioService) {
-    $scope.username = AudioService.getUser();
-    $scope.grandson = AudioService.getGrandson();
+app.controller('HomeController', function($scope, AudioService, UserService) {
+    $scope.createUser = function(input) {
+        UserService.setUser(input);
+        console.log(input);
+    }
+
+    $scope.createPW = function(input) {
+        UserService.setPW(input);
+        console.log(input);
+    }
+
     $scope.songs = AudioService.getSongs();
     $scope.friends = AudioService.getFriends();
 });
